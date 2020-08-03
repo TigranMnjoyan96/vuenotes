@@ -1,28 +1,73 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+<div>
+    <h2>{{title}}</h2>
+      
+      <Notes :notes="notes" @removeChild="remove"/>
+</div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+
+import Notes from './components/Notes'
+
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
-  }
+    name: "App",
+    components: {
+      Notes
+    },
+    data() {
+        return {
+            title: "Notes App",
+            notes: [{
+                    id: 0,
+                    title: 'First Note',
+                    descr: 'Description for first',
+                    date: new Date(Date.now()).toLocaleString()
+                },
+                {
+                    id: 1,
+                    title: 'Second Note',
+                    descr: 'Description for second',
+                    date: new Date(Date.now()).toLocaleString()
+                },
+                {
+                    id: 2,
+                    title: 'Third Note',
+                    descr: 'Description for third',
+                    date: new Date(Date.now()).toLocaleString()
+                }
+            ]
+        }
+    },
+    methods: {
+      remove(id) {
+        this.notes = this.notes.filter(e => e.id !== id)
+      }
+    }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+
+* {
+        font-family: Verdana;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .notes {
+        padding-top: 20px;
+    }
+
+    .notes table, th, td {
+        border: 1px dashed black;
+    }
+    h2 {
+        text-align: center;
+    }
 </style>
